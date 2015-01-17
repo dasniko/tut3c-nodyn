@@ -28,7 +28,7 @@ var server = http.createServer(function(request, response) {
         response.end(err.msg)
       } else {
         vertx.eventbus.send("tictactoe", body, function(message) {
-          response.write(message.body);
+          response.write(JSON.stringify(message.body));
           response.end();
         });
       }
