@@ -30,12 +30,15 @@ td {
   width:100px;
   color: #666;
   font-size: 300%;
+  cursor:pointer;
 }
 .x {
   background-color: lightgreen;
+  cursor:default;
 }
 .o {
   background-color: #FFaaaa;
+  cursor:default;
 }
 button {
   border: 1px solid black;

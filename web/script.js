@@ -52,7 +52,7 @@ var doMove = function(req) {
 		$.ajax(apiUrl , 
     {
       contentType: "application/json",
-      data: req,
+      data: JSON.stringify(req),
       error: function(xhr, status, error) {
 					$('.log').prepend($("<div>There was an error:" + status + "\n" + JSON.stringify(error) + "</div>"));
     			console.log(error);
