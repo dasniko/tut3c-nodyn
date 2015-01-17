@@ -25,3 +25,9 @@ font-family: sans-serif;
 td {
   border: 1px solid;
 }
+.x {
+  background-color: lightgreen;
+}
+.y {
+  background-color: #FFaaaa;
+}

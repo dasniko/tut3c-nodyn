@@ -27,6 +27,7 @@ var updateBoard = function(json) {
           $(value).text('&nbsp;');
       } else {
           $(value).html(val);
+          $(value).addClass(val.toLowerCase();
       }
   });
 };
