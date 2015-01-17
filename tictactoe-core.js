@@ -10,6 +10,7 @@ var gameHandler = {
       this.lastPlayer = null;
       this.isGameOver = false;
       var result = {"board": this.board, "status": "TicTacToe initialized. Start your new game!"};
+      callback(result);
   },
 
   handle: function(message, replier) {
