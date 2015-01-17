@@ -1,11 +1,23 @@
 
 var gameHandler = {
-  board: [[null, null, null], [null, null, null], [null, null, null]],
+  board: null,
 
   lastPlayer: null,
+  isGameOver: false,
+
+  init: function(callback) {
+      this.board = [[null, null, null], [null, null, null], [null, null, null]];
+      this.lastPlayer = null;
+      this.isGameOver = false;
+      var result = {"board": this.board, "status": "TicTacToe initialized. Start your new game!"};
+  },
 
   handle: function(message, replier) {
 
+    if (this.isGameOver) {
+      replier({"board": this.board, "status": "Game over :-( Send a GET request to start a new Game!"});
+      return;
+    }
 
     var row = message.coord[0];
     var col = message.coord[1];
@@ -37,6 +49,7 @@ var gameHandler = {
 
   getStatus: function(message) {
     if(this.hasWon(message.player, message.coord[0], message.coord[1])) {
+      this.isGameOver = true;
       return "Player "+message.player.toUpperCase()+" has won. Congratulations!!";
     } else {
       var otherPlayer = "X";

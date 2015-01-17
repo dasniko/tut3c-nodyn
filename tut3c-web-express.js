@@ -1,10 +1,11 @@
 var http = require("http");
 var express = require("express");
 var bodyParser = require("body-parser");
+var path = require("path");
 var vertx = require("vertx2-core");
 var app = express();
 
-
+app.use(express.static(__dirname));
 app.use(bodyParser.json());
 
 app.post('/', function (req, res) {
@@ -14,14 +15,21 @@ app.post('/', function (req, res) {
             res.json(message.body);
         });
     } else {
-        res.status(500).send("Empty Object");
+        res.status(400).send("Empty Object");
     }
 });
 
-app.get('/', function(req, res) {
-    res.write("Message Type not allowed");
-    res.end();
+app.get('/init', function(req, res) {
+    vertx.eventbus.send("init_ttt", {}, function(message) {
+        res.json(message.body);
+    });
 });
+
+/*app.get('/', function(req, res) {
+    var filename = path.join(__dirname, 'index.html');
+    console.log(filename);
+    res.sendFile(filename);
+});*/
 
 var server = app.listen(9000, function() {
     var host = server.address().address;
