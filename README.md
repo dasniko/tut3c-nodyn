@@ -27,3 +27,7 @@ and
     tut3c-web-express.js
 
 (One with express, one without ;-) )
+
+## Mocha unit tests
+can be run with:
+	mocha
