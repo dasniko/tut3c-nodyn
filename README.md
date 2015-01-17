@@ -9,3 +9,5 @@
 - http://github.com/nodyn/nodyn
 - http://github.com/nodyn/mod-nodyn
 - http://github.com/nodyn/vertx2-core
+
+Test your installations with https://github.com/dasniko/beer-as-a-service
