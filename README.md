@@ -4,6 +4,7 @@
 
 (You'll need Java and Maven)
 
+- http://nodejs.org
 - http://vertx.io
 - http://github.com/nodyn/nodyn
 - http://github.com/nodyn/mod-nodyn
