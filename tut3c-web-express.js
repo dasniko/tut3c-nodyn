@@ -6,6 +6,10 @@ var fs = require("fs");
 var vertx = require("vertx2-core");
 var app = express();
 
+String.prototype.endsWith = function(suffix) {
+    return this.indexOf(suffix, this.length - suffix.length) !== -1;
+};
+
 app.use(bodyParser.json());
 
 app.post('/api', function (req, res) {
@@ -27,11 +31,18 @@ app.get('/api', function(req, res) {
 
 app.get('/:file', function(req, res) {
     var filename = path.join(__dirname, "web", req.params.file);
+    var strFile = new String(filename);
     fs.readFile(filename, "utf8", function(err, data) {
         if (err) {
             console.log(err);
         } else {
-            res.set("Content-type", "text/html");
+            var contentType = "text/html";
+            if (strFile.endsWith(".js")) {
+                contentType = "text/javascript";
+            } else if (strFile.endsWith(".css")) {
+                contentType = "text/css";
+            }
+            res.set("Content-type", contentType);
             res.send(data);
             res.end();
         }
