@@ -8,10 +8,15 @@ var gameHandler = {
   handle: function(message, replier) {
     java.lang.System.err.println("TTT: Received request from player " + message.player + " with coordinate "+message.coord[0]+", "+message.coord[1]+".");
 
+    var row = message.coord[0];
+    var col = message.coord[1];
+    if(row < 0 || row > 2 || col < 0 || col > 2) {
+      replier({"board": this.board, "status": "Illegal coordinates: Coordinates must be in range of [0..2]."});
+      return;
+    }
+
     if(message.player !== this.lastPlayer) {
       // it is player's turn
-      var row = message.coord[0];
-      var col = message.coord[1];
 
       if(this.board[row][col] == null) {
         // field is still empty
@@ -76,6 +81,7 @@ eventBus.registerHandler("tictactoe", globalHandler);
 // globalHandler({player:"x",coord:[1,2]}, function(obj){java.lang.System.err.println("board result: "+JSON.stringify(obj, " "));});
 // globalHandler({player:"o",coord:[1,0]}, function(obj){java.lang.System.err.println("board result: "+JSON.stringify(obj, " "));});
 // globalHandler({player:"x",coord:[1,1]}, function(obj){java.lang.System.err.println("board result: "+JSON.stringify(obj, " "));});
-// globalHandler({player:"x",coord:[1,2]}, function(obj){java.lang.System.err.println("board result: "+JSON.stringify(obj, " "));});
+// globalHandler({player:"x",coord:[1,3]}, function(obj){java.lang.System.err.println("board result: "+JSON.stringify(obj, " "));});
+// globalHandler({player:"x",coord:[-1,2]}, function(obj){java.lang.System.err.println("board result: "+JSON.stringify(obj, " "));});
 
 java.lang.System.err.println("Let the games begin!");
