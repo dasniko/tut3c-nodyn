@@ -21,11 +21,10 @@ var getJsonFrom = function(cell) {
 };
 
 var updateBoard = function(json) {
-  $('.log').prepend($("<div>" + json.status + "</div>"));
   $.each($('.board td'), function(index, value) {
-      var val = result.board[$(value).attr("data-x")][$(value).attr("data-y")];
+      var val = json.board[$(value).attr("data-x")][$(value).attr("data-y")];
       if( val == null ) {
-          $(value).text('&nbsp;');
+          $(value).html('&nbsp;');
       } else {
           $(value).html(val);
           $(value).addClass(val.toLowerCase());
@@ -41,6 +40,7 @@ var initBoard = function() {
     			console.log(error);
       },
        success: function(result, status, xhr) {
+  $('.log').prepend($("<div>" + result.status + "</div>"));
           updateBoard(result);
 			},
       type: "GET"
@@ -58,6 +58,7 @@ var doMove = function(req) {
     			console.log(error);
       },
        success: function(result, status, xhr) {
+          $('.log').prepend($("<div>" + result.status + "</div>"));
           if(statusOkay(result.status)) {
             updateBoard(result);
             if (currentPlayer === "X") {
