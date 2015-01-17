@@ -1,0 +1,27 @@
+body {
+font-family: sans-serif;
+}
+.board, .log, .actions {
+  min-width:300px;
+  display: inline-block;
+  vertical-align:top;
+}
+.board, .actions {
+  text-align:center;
+}
+.log {
+  font-family: 'courier new';
+  overflow-y: auto;
+  max-height:300px;
+}
+.board table {
+  background-color: #ddd;
+  border: 1px solid;
+  border-collapse:collapse;
+  width: 300px;
+  height: 300px;
+  margin:auto;
+}
+td {
+  border: 1px solid;
+}
