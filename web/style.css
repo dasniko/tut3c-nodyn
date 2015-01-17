@@ -1,0 +1,51 @@
+body {
+  font-family: sans-serif;
+  background-color: #666666;
+  color: white; 
+}
+.board, .log, .actions {
+  min-width:300px;
+  display: inline-block;
+  vertical-align:top;
+}
+.board, .actions {
+  text-align:center;
+}
+.log {
+  font-family: 'courier new';
+  overflow-y: auto;
+  max-height:300px;
+}
+.board table {
+  background-color: #ddd;
+  border: 1px solid #666;
+  border-collapse:collapse;
+  width: 300px;
+  height: 300px;
+  margin:auto;
+  box-shadow: 4px 4px 5px #444;
+}
+td {
+  border: 1px solid #666;
+  width:100px;
+  color: #666;
+  font-size: 300%;
+}
+.x {
+  background-color: lightgreen;
+}
+.o {
+  background-color: #FFaaaa;
+}
+button {
+  border: 1px solid black;
+  background: linear-gradient(to bottom, #ce9494 0%, #996666 27%, #772929 30%, #7f0101 56%, #ed1212 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  color: white;
+  height:2em;
+  border-radius: 5px;
+  box-shadow: 4px 4px 5px #444;
+  font-size:larger;
+}
+button:active {
+  box-shadow: none;
+}
