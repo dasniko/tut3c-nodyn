@@ -3,15 +3,47 @@ var eventBus = require("vertx/event_bus");
 var gameHandler = {
   board: [[null, null, null], [null, null, null], [null, null, null]],
 
+  lastPlayer: null,
+
   handle: function(message, replier) {
     java.lang.System.err.println("TTT: Received request from player " + message.player + " with coordinate "+message.coord[0]+", "+message.coord[1]+".");
-    this.board[message.coord[0]][message.coord[1]] = message.player;
-    java.lang.System.err.println("board: "+this.board);
-    replier({"board": this.board, "status": this.getStatus(message)});
+
+    if(message.player !== this.lastPlayer) {
+      // it is player's turn
+      var row = message.coord[0];
+      var col = message.coord[1];
+
+      if(this.board[row][col] == null) {
+        // field is still empty
+        this.board[row][col] = message.player;
+        this.lastPlayer = message.player;
+
+        java.lang.System.err.println("board: "+this.board);
+
+        replier({"board": this.board, "status": this.getStatus(message)});
+      } else {
+        replier({"board": this.board, "status": "Illegal move: Field already occupied."});
+      }
+
+
+    } else {
+      replier({"board": this.board, "status": "Illegal move: It is not your turn."});
+    }
+
+
   },
 
   getStatus: function(message) {
-    return this.hasWon(message.player, message.coord[0], message.coord[1]);
+    if(this.hasWon(message.player, message.coord[0], message.coord[1])) {
+      return "Player "+message.player.toUpperCase()+" has won. Congratulations!!";
+    } else {
+      var otherPlayer = "X";
+      if(message.player.toLowerCase() === "x") {
+        otherPlayer = "O";
+      }
+
+      return "It is "+otherPlayer+"'s turn'";
+    }
   },
 
   hasWon: function(player, currentRow, currentCol) {
@@ -40,8 +72,10 @@ var globalHandler = function(message, replier) {
 
 eventBus.registerHandler("tictactoe", globalHandler);
 
-//globalHandler({player:"x",coord:[1,1]}, function(obj){java.lang.System.err.println("board result: "+JSON.stringify(obj, " "));});
-//globalHandler({player:"x",coord:[1,2]}, function(obj){java.lang.System.err.println("board result: "+JSON.stringify(obj, " "));});
-//globalHandler({player:"x",coord:[1,0]}, function(obj){java.lang.System.err.println("board result: "+JSON.stringify(obj, " "));});
+// globalHandler({player:"x",coord:[1,1]}, function(obj){java.lang.System.err.println("board result: "+JSON.stringify(obj, " "));});
+// globalHandler({player:"x",coord:[1,2]}, function(obj){java.lang.System.err.println("board result: "+JSON.stringify(obj, " "));});
+// globalHandler({player:"o",coord:[1,0]}, function(obj){java.lang.System.err.println("board result: "+JSON.stringify(obj, " "));});
+// globalHandler({player:"x",coord:[1,1]}, function(obj){java.lang.System.err.println("board result: "+JSON.stringify(obj, " "));});
+// globalHandler({player:"x",coord:[1,2]}, function(obj){java.lang.System.err.println("board result: "+JSON.stringify(obj, " "));});
 
 java.lang.System.err.println("Let the games begin!");
