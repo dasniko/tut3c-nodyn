@@ -34,10 +34,14 @@ var gameHandler = {
 
 };
 
-eventBus.registerHandler("tictactoe", gameHandler.handle);
+var globalHandler = function(message, replier) {
+  gameHandler.handle(message, replier);
+}
 
-//gameHandler.handle({player:"x",coord:[1,1]}, function(obj){java.lang.System.err.println("board result: "+JSON.stringify(obj, " "));});
-//gameHandler.handle({player:"x",coord:[1,2]}, function(obj){java.lang.System.err.println("board result: "+JSON.stringify(obj, " "));});
-//gameHandler.handle({player:"x",coord:[1,0]}, function(obj){java.lang.System.err.println("board result: "+JSON.stringify(obj, " "));});
+eventBus.registerHandler("tictactoe", globalHandler);
+
+//globalHandler({player:"x",coord:[1,1]}, function(obj){java.lang.System.err.println("board result: "+JSON.stringify(obj, " "));});
+//globalHandler({player:"x",coord:[1,2]}, function(obj){java.lang.System.err.println("board result: "+JSON.stringify(obj, " "));});
+//globalHandler({player:"x",coord:[1,0]}, function(obj){java.lang.System.err.println("board result: "+JSON.stringify(obj, " "));});
 
 java.lang.System.err.println("Let the games begin!");
