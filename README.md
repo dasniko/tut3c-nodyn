@@ -34,7 +34,8 @@ This isn't a good approach, but there was no other way in this short time of the
 
 ## Mocha unit tests
 
-are in the ´test´ subfolder and can be run with:
+are in the `test` subfolder and can be run with:
+
     mocha test-tictactoe-server.js
 
 They are surely not the best way, yet. But as there was agenda initially to build test,
