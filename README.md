@@ -28,6 +28,14 @@ and
 
 (One with express, one without ;-) )
 
+Due to the fact, that Nodyn isn't able to serve static files with ExpressJS,
+we implemented a workaround in `tut3c-web-express.js` for serving the UI files.
+This isn't a good approach, but there was no other way in this short time of the day, so be patient with us. ;-)
+
 ## Mocha unit tests
-can be run with:
-	mocha
+
+are in the ´test´ subfolder and can be run with:
+    mocha test-tictactoe-server.js
+
+They are surely not the best way, yet. But as there was agenda initially to build test,
+we're pretty proud to have some in any way! (Good girls!)
