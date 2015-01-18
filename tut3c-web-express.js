@@ -24,13 +24,16 @@ app.post('/api', function (req, res) {
 });
 
 app.get('/api', function(req, res) {
+    console.log("Init-Request received.");
     vertx.eventbus.send("init_ttt", {}, function(message) {
         res.json(message.body);
     });
 });
 
 app.get('/:file', function(req, res) {
-    var filename = path.join(__dirname, "web", req.params.file);
+    var file = req.params.file;
+    console.log("Received request for file %s", file);
+    var filename = path.join(__dirname, "web", file);
     var strFile = new String(filename);
     fs.readFile(filename, "utf8", function(err, data) {
         if (err) {
