@@ -13,8 +13,12 @@ var gameHandler = {
 
   handle: function(message, callback) {
 
+    if (this.board === null) {
+      throw new Error("Game is not initialized!");
+    }
+
     if (this.isGameOver) {
-      callback({"board": this.board, "status": "Game over :-( Send a GET request to start a new Game!"});
+      callback({"board": this.board, "status": "Game over :-("});
       return;
     }
 
