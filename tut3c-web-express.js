@@ -6,10 +6,6 @@ var fs = require("fs");
 var vertx = require("vertx2-core");
 var app = express();
 
-String.prototype.endsWith = function(suffix) {
-    return this.indexOf(suffix, this.length - suffix.length) !== -1;
-};
-
 app.use(bodyParser.json());
 
 app.post('/api', function (req, res) {
