@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/dasniko/tut3c-nodyn.svg?branch=master)](https://travis-ci.org/dasniko/tut3c-nodyn)
 # The Ultimate Tic-Tac-Toe Challenge with Nodyn & Vert.x
 
 ## Install/Clone & build:
