@@ -17,11 +17,12 @@ var gameHandler = {
       throw new Error("Game is not initialized!");
     }
 
-    if (this.isGameOver) {
+    if (this.isGameOver || this.isTie()) {
       callback({"board": this.board, "status": "Game over :-("});
       return;
     }
 
+    var player = message.player;
     var row = message.coord[0];
     var col = message.coord[1];
     if(row < 0 || row > 2 || col < 0 || col > 2) {
@@ -29,24 +30,27 @@ var gameHandler = {
       return;
     }
 
-    if(message.player !== this.lastPlayer) {
-      // it is player's turn
+    if(player !== this.lastPlayer) {
 
+      // it is player's turn
       if(this.board[row][col] == null) {
         // field is still empty
-        this.board[row][col] = message.player;
-        this.lastPlayer = message.player;
-
-        callback({"board": this.board, "status": this.getStatus(message)});
+        this.setMove(player, row, col);
+        var status = this.getStatus(message);
+        callback({"board": this.board, "status": status});
       } else {
         callback({"board": this.board, "status": "Illegal move: Field already occupied."});
       }
-
 
     } else {
       callback({"board": this.board, "status": "Illegal move: It is not your turn."});
     }
 
+  },
+
+  setMove: function(player, x, y) {
+    this.board[x][y] = player;
+    this.lastPlayer = player;
   },
 
   getStatus: function(message) {
@@ -77,6 +81,22 @@ var gameHandler = {
       && this.board[0][2] === player
       && this.board[1][1] === player
       && this.board[2][0] === player);
+  },
+
+  isTie: function() {
+    var n = 0;
+    for (var x = 0; x < this.board.length; x++) {
+      for (var y = 0; y < this.board[x].length; y++) {
+        if (this.board[x][y] !== null)
+          n++;
+      }
+    }
+    var tie = false;
+    if (n === 9) {
+      tie = true;
+      this.isGameOver = true;
+    }
+    return tie;
   }
 
 };

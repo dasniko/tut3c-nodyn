@@ -66,13 +66,57 @@ describe('GameHandler', function() {
       testMove("x", 0, 2, "Player X has won. Congratulations!!");
     });
 
-    it('should return "Game over :-(', function() {
+    it('should return "Game over :-(" (after X has won)', function() {
       move("x", 0, 0);
       move("o", 1, 1);
       move("x", 0, 1);
       move("o", 2, 1);
       move("x", 0, 2);
       testMove("x", 1, 1, "Game over :-(")
+    });
+
+    it('should return "Game over :-(" (after tie)', function() {
+      move("x", 0, 0);
+      move("o", 0, 1);
+      move("x", 0, 2);
+      move("o", 1, 1);
+      move("x", 1, 0);
+      move("o", 2, 0);
+      move("x", 2, 1);
+      move("o", 2, 2);
+      move("x", 1, 2);
+      testMove("o", 1, 1, "Game over :-(");
+    });
+  });
+
+  describe('#isTie()', function() {
+    beforeEach(function() {
+      gameHandler.init(function(result) {});
+    });
+
+    it('should return "true"', function() {
+      move("x", 0, 0);
+      move("o", 0, 1);
+      move("x", 0, 2);
+      move("o", 1, 1);
+      move("x", 1, 0);
+      move("o", 2, 0);
+      move("x", 2, 1);
+      move("o", 2, 2);
+      move("x", 1, 2);
+      assert.ok(gameHandler.isTie());
+    });
+
+    it('should return "false"', function() {
+      move("x", 0, 0);
+      move("o", 0, 1);
+      move("x", 0, 2);
+      move("o", 1, 1);
+      move("x", 1, 0);
+      move("o", 2, 0);
+      move("x", 2, 1);
+      move("o", 2, 2);
+      assert.ifError(gameHandler.isTie());
     });
   });
 });
