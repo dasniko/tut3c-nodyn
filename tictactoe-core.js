@@ -36,7 +36,7 @@ var gameHandler = {
       if(this.board[row][col] == null) {
         // field is still empty
         this.setMove(player, row, col);
-        var status = this.getStatus(message);
+        var status = this.getStatus(message.player);
         callback({"board": this.board, "status": status});
       } else {
         callback({"board": this.board, "status": "Illegal move: Field already occupied."});
@@ -53,34 +53,40 @@ var gameHandler = {
     this.lastPlayer = player;
   },
 
-  getStatus: function(message) {
-    if(this.hasWon(message.player, message.coord[0], message.coord[1])) {
+  getStatus: function(player) {
+    if(this.isWinner(player)) {
       this.isGameOver = true;
-      return "Player " + message.player.toUpperCase() + " has won. Congratulations!!";
+      return "Player " + player.toUpperCase() + " has won. Congratulations!!";
     } else {
       var otherPlayer = "X";
-      if(message.player.toLowerCase() === "x") {
+      if(player.toUpperCase() === "X") {
         otherPlayer = "O";
       }
       return "It is " + otherPlayer + "'s turn";
     }
   },
 
-  hasWon: function(player, currentRow, currentCol) {
-    return (this.board[currentRow][0] === player         // 3-in-the-row
-      && this.board[currentRow][1] === player
-      && this.board[currentRow][2] === player
-      || this.board[0][currentCol] === player      // 3-in-the-column
-      && this.board[1][currentCol] === player
-      && this.board[2][currentCol] === player
-      || currentRow === currentCol            // 3-in-the-diagonal
-      && this.board[0][0] === player
-      && this.board[1][1] === player
-      && this.board[2][2] === player
-      || currentRow + currentCol === 2  // 3-in-the-opposite-diagonal
-      && this.board[0][2] === player
-      && this.board[1][1] === player
-      && this.board[2][0] === player);
+  isWinner: function(player) {
+    var isWinner = false;
+    var b = this.board;
+    // this works only if it's a 3x3 board...
+    // check vertically and horizontally
+    for (var i = 0; i < 3; i++) {
+      if (b[i][0] === player && b[i][0] === b [i][1] && b[i][1] === b[i][2]) {
+        isWinner = true;
+      };
+      if (b[0][i] === player && b[0][i] === b [1][i] && b[1][i] === b[2][i]) {
+        isWinner = true;
+      };
+    }
+    // check diagonally
+    if (b[0][0] === player && b[0][0] === b [1][1] && b[1][1] === b[2][2]) {
+      isWinner = true;
+    };
+    if (b[0][2] === player && b[0][2] === b [1][1] && b[1][1] === b[2][0]) {
+      isWinner = true;
+    };
+    return isWinner;
   },
 
   isTie: function() {
