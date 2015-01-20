@@ -1,0 +1,29 @@
+{
+  "name": "tut3c-nodyn",
+  "version": "1.0.0",
+  "description": "TicTacToe implementation using Nodyn and Vert.x",
+  "main": "tictactoe-core.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha test/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dasniko/tut3c-nodyn.git"
+  },
+  "keywords": [
+    "nodejs",
+    "nodyn",
+    "vertx",
+    "tictactoe",
+    "javascript"
+  ],
+  "author": "Niko Köbler",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dasniko/tut3c-nodyn/issues"
+  },
+  "homepage": "https://github.com/dasniko/tut3c-nodyn"
+}
