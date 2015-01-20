@@ -72,18 +72,18 @@ var gameHandler = {
     // this works only if it's a 3x3 board...
     // check vertically and horizontally
     for (var i = 0; i < 3; i++) {
-      if (b[i][0] === player && b[i][0] === b [i][1] && b[i][1] === b[i][2]) {
+      if (b[i][0] === player && b[i][0] === b[i][1] && b[i][1] === b[i][2]) {
         isWinner = true;
       };
-      if (b[0][i] === player && b[0][i] === b [1][i] && b[1][i] === b[2][i]) {
+      if (b[0][i] === player && b[0][i] === b[1][i] && b[1][i] === b[2][i]) {
         isWinner = true;
       };
     }
     // check diagonally
-    if (b[0][0] === player && b[0][0] === b [1][1] && b[1][1] === b[2][2]) {
+    if (b[0][0] === player && b[0][0] === b[1][1] && b[1][1] === b[2][2]) {
       isWinner = true;
     };
-    if (b[0][2] === player && b[0][2] === b [1][1] && b[1][1] === b[2][0]) {
+    if (b[0][2] === player && b[0][2] === b[1][1] && b[1][1] === b[2][0]) {
       isWinner = true;
     };
     return isWinner;

@@ -89,33 +89,27 @@ describe('GameHandler', function() {
     });
   });
 
-  describe('#isTie()', function() {
-    beforeEach(function() {
-      gameHandler.init(function(result) {});
+  describe("#isWinner()", function() {
+    it("should be winner: X", function() {
+      gameHandler.board = [["X", "O", "X"], ["O", "X", "O"], ["X", null, null]];
+      assert.ok(function() {
+        return gameHandler.isWinner("X");
+      }());
     });
+    it("should NOT be winner: O", function() {
+      gameHandler.board = [["X", "O", "X"], ["O", "X", "O"], ["X", null, null]];
+      assert.ifError(gameHandler.isWinner("O"));
+    });
+  });
 
-    it('should return "true"', function() {
-      move("x", 0, 0);
-      move("o", 0, 1);
-      move("x", 0, 2);
-      move("o", 1, 1);
-      move("x", 1, 0);
-      move("o", 2, 0);
-      move("x", 2, 1);
-      move("o", 2, 2);
-      move("x", 1, 2);
+  describe("#isTie()", function() {
+    it("should return 'true'", function() {
+      gameHandler.board = [["X", "O", "X"], ["X", "O", "X"], ["O", "X", "O"]];
       assert.ok(gameHandler.isTie());
     });
 
-    it('should return "false"', function() {
-      move("x", 0, 0);
-      move("o", 0, 1);
-      move("x", 0, 2);
-      move("o", 1, 1);
-      move("x", 1, 0);
-      move("o", 2, 0);
-      move("x", 2, 1);
-      move("o", 2, 2);
+    it("should return 'false'", function() {
+      gameHandler.board = [["X", "O", "X"], ["X", "O", "X"], ["O", "X", null]];
       assert.ifError(gameHandler.isTie());
     });
   });
