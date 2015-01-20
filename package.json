@@ -2,12 +2,22 @@
   "name": "tut3c-nodyn",
   "version": "1.0.0",
   "description": "TicTacToe implementation using Nodyn and Vert.x",
-  "main": "tictactoe-core.js",
+  "main": "tictactoe-web-express.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "test": "mocha test/*"
+  },
+  "dependencies": {
+    "express": "4.11.0",
+    "body-parser": "1.10.1",
+    "path": "0.11.14",
+    "fs": "0.0.2",
+    "vertx2-core": "nodyn/vertx2-core"
+  },
+  "devDependencies": {
+    "mocha": "2.1.0"
   },
   "repository": {
     "type": "git",
