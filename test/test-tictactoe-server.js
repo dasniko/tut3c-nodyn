@@ -9,16 +9,11 @@ var testMove = function(player, x, y, expectedStatus) {
   })
 };
 
-// just a simple move, without testing the return value
-var move = function(player, x, y) {
-  gameHandler.handle({player: player, coord: [x, y]}, function(obj) {});
-};
-
 describe('GameHandler', function() {
   describe('#init()', function() {
     it('should throw an error', function() {
       assert.throws(function() {
-        move("x", 0, 0);
+        gameHandler.handle({player: "x", coord: [0, 0]}, function(obj) {});
       }, Error);
     });
 
@@ -30,7 +25,7 @@ describe('GameHandler', function() {
 
     it('should NOT throw an error', function() {
       assert.doesNotThrow(function() {
-        move("x", 0, 0);
+        gameHandler.handle({player: "x", coord: [0, 0]}, function(obj) {});
       }, Error);
     });
   });
@@ -49,42 +44,34 @@ describe('GameHandler', function() {
     });
 
     it('should return "Illegal move: It is not your turn."', function() {
-      move("x", 0, 0);
+      gameHandler.board = [["x", null, null], [null, null, null], [null, null, null]];
+      gameHandler.lastPlayer = "x";
       testMove("x", 0, 1, "Illegal move: It is not your turn.");
     });
 
     it('should return "Illegal move: Field already occupied."', function() {
-      move("o", 1, 1);
+      gameHandler.board = [[null, null, null], [null, "o", null], [null, null, null]];
+      gameHandler.lastPlayer = "o";
       testMove("x", 1, 1, "Illegal move: Field already occupied.");
     });
 
     it('should return "Player X has won. Congratulations!!"', function() {
-      move("x", 0, 0);
-      move("o", 1, 1);
-      move("x", 0, 1);
-      move("o", 2, 1);
+      gameHandler.board = [["x", "x", null], [null, "o", null], [null, "o", null]];
+      gameHandler.lastPlayer = "o";
       testMove("x", 0, 2, "Player X has won. Congratulations!!");
     });
 
     it('should return "Game over :-(" (after X has won)', function() {
-      move("x", 0, 0);
-      move("o", 1, 1);
-      move("x", 0, 1);
-      move("o", 2, 1);
-      move("x", 0, 2);
+      gameHandler.board = [["x", "x", "x"], [null, "o", null], [null, "o", null]];
+      gameHandler.lastPlayer = "x";
+      gameHandler.isGameOver = true;
       testMove("x", 1, 1, "Game over :-(")
     });
 
     it('should return "Game over :-(" (after tie)', function() {
-      move("x", 0, 0);
-      move("o", 0, 1);
-      move("x", 0, 2);
-      move("o", 1, 1);
-      move("x", 1, 0);
-      move("o", 2, 0);
-      move("x", 2, 1);
-      move("o", 2, 2);
-      move("x", 1, 2);
+      gameHandler.board = [["x", "o", "x"], ["x", "o", "x"], ["o", "x", "o"]];
+      gameHandler.lastPlayer = "x";
+      gameHandler.isGameOver = true;
       testMove("o", 1, 1, "Game over :-(");
     });
   });
