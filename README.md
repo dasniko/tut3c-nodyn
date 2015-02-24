@@ -38,5 +38,9 @@ are in the `test` subfolder and can be run with:
 
     mocha test-tictactoe-server.js
 
+or from the top-level, just run
+
+    npm test
+
 They are surely not the best way, yet. But as there was agenda initially to build test,
 we're pretty proud to have some in any way! (Good girls!)
